@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks, no_leading_underscores_for_local_identifiers
+// ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks, no_leading_underscores_for_local_identifiers, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_application/screens/pages/homePage.dart';

@@ -52,10 +52,17 @@ class EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Edit here',
+          style: TextStyle(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 15, left: 26),
+          padding: const EdgeInsets.only(top: 15, left: 26, right: 25),
           child: container2(context),
         ),
       ),

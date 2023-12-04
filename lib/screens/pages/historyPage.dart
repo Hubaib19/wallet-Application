@@ -76,6 +76,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ),
           ),
         ],
+        toolbarHeight: 80,
       ),
       body: ValueListenableBuilder(
         valueListenable: walletListnotifier,

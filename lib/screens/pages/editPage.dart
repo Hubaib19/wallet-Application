@@ -62,7 +62,7 @@ class EditPageState extends State<EditPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 15, left: 26, right: 25),
+          padding: const EdgeInsets.only(top: 45, left: 16),
           child: container2(context),
         ),
       ),
@@ -96,22 +96,26 @@ class EditPageState extends State<EditPage> {
               onTap: () {
                 editall(context);
               },
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                width: 100,
-                height: 15,
-                child: const Text(
-                  'Save ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: 17,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    width: 100,
+                    height: 50,
+                    child: const Text(
+                      'Save ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

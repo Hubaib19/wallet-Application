@@ -46,7 +46,7 @@ class _AddDataState extends State<AddData> {
         key: _formkey,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 15, left: 26),
+            padding: const EdgeInsets.only(top: 45, left: 16),
             child: container2(context),
           ),
         ),
@@ -81,25 +81,26 @@ class _AddDataState extends State<AddData> {
               onTap: () {
                 onAddbuttonClicked(context);
               },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: Container(
-                  width: 100,
-                  height: 20,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                  ),
-                  child: const Text(
-                    'Save ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      fontSize: 17,
+              child: Column(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: const Text(
+                      'Save ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

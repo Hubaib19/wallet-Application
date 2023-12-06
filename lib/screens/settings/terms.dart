@@ -27,7 +27,7 @@ class Terms extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      """Welcome to our money management mobile app.\n If you continue to use this app, you are agreeing to \ncomply with and be bound by the following terms and conditions of use, which together with our privacy policy govern's relationship with you in relation to this app. If you disagree with any part of these terms and conditions, please do not use our app.
+                      """Welcome to our wallet mobile app.\n If you continue to use this app, you are agreeing to \ncomply with and be bound by the following terms and conditions of use, which together with our privacy policy govern's relationship with you in relation to this app. If you disagree with any part of these terms and conditions, please do not use our app.
                     
                     The term 'We' refers to the owner of the app whose registered office is at Kerala. The term 'you' refers to the user or viewer of our app.
                     

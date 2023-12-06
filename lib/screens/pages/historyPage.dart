@@ -95,7 +95,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               return Card(
                 elevation: 4,
                 margin: const EdgeInsets.all(8),
-                color: Colors.grey[100],
+                color: Colors.white,
                 child: ListTile(
                   title: Text(
                     data.description,

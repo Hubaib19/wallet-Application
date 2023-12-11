@@ -35,12 +35,12 @@ class _AllScreenState extends State<AllScreen> {
             Map incomeMap = {
               'name': "Income",
               "amount": IncomeAndExpence().income(),
-              "color": Colors.lightBlueAccent,
+             // "color": Colors.lightBlueAccent,
             };
             Map expenseMap = {
               'name': 'Expense',
               'amount': IncomeAndExpence().expense(),
-              "color": Colors.pinkAccent
+              //"color": Colors.pinkAccent
             };
             List<Map> totalMap = [incomeMap, expenseMap];
             return overViewGraphNotifier.value.isEmpty

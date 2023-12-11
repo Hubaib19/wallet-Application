@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                   const Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                      'Last Transaction',
+                      'Last Transaction', 
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),

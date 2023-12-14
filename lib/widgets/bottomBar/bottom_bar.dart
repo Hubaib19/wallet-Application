@@ -1,11 +1,12 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names, prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:wallet_application/screens/pages/addPage.dart';
-import '../screens/pages/historyPage.dart';
-import '../screens/pages/homePage.dart';
-import '../screens/pages/statistics.dart';
-import '../screens/settings/settings.dart';
+import 'package:wallet_application/View/pages/addPage.dart';
+import 'package:wallet_application/View/pages/historyPage.dart';
+import 'package:wallet_application/View/pages/homePage.dart';
+import 'package:wallet_application/View/pages/statistics.dart';
+import 'package:wallet_application/View/settings/settings.dart';
+
 
 class Bottombar extends StatefulWidget {
   const Bottombar({super.key});

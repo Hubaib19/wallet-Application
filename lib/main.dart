@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'bottomBar/bottom_bar.dart';
+import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import 'model/dataModel.dart';
 
 //initializing hive;

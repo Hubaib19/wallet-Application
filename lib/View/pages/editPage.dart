@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables, duplicate_ignore, non_constant_identifier_names, unrelated_type_equality_checks, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../bottomBar/bottom_bar.dart';
+import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import '../../dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 

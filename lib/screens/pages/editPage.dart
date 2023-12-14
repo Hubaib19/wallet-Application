@@ -278,3 +278,7 @@ class EditPageState extends State<EditPage> {
         .push(MaterialPageRoute(builder: (context) => const Bottombar()));
   }
 }
+
+// buildcontext
+// git conflict
+// initstate

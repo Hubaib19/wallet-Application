@@ -1,6 +1,6 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
-import '../../dataBase/db.functions.dart';
+import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 import '../statistics/allCharts.dart';
 import '../statistics/expenceChart.dart';

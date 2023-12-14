@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
-import '../../dataBase/db.functions.dart';
+import '../../controller/dataBase/db.functions.dart';
 import 'privacy.dart';
 import 'terms.dart';
 

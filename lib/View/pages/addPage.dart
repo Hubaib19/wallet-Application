@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_application/View/pages/homePage.dart';
-import '../../dataBase/db.functions.dart';
+import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 
 class AddData extends StatefulWidget {

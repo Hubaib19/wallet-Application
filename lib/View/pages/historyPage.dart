@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import '../../dataBase/db.functions.dart';
+import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 import 'editPage.dart';
 

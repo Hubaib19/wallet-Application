@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
-import '../../dataBase/db.functions.dart';
+import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 
 class EditPage extends StatefulWidget {

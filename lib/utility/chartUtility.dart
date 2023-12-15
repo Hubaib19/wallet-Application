@@ -15,7 +15,7 @@ class IncomeAndExpence {
     for (var i = 0; i < chart.length; i++) {
       a.add(chart[i].through == 'Income'
           ? int.parse(chart[i].amount)
-          : int.parse(chart[i].amount) * -1);  //  
+          : int.parse(chart[i].amount) * -1); 
     }
     totals = a.reduce((value, element) => value + element);
     return totals;

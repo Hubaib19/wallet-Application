@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import 'model/dataModel.dart';
 
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        title: 'Wallet', debugShowCheckedModeBanner: false, home: Bottombar());
+    return MultiProvider(
+      providers: [],
+      child: const MaterialApp(
+          title: 'Wallet', debugShowCheckedModeBanner: false, home: Bottombar()),
+    );
   }
 }

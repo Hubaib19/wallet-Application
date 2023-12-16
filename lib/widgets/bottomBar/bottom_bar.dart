@@ -1,12 +1,13 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names, prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_application/View/pages/addPage.dart';
 import 'package:wallet_application/View/pages/historyPage.dart';
 import 'package:wallet_application/View/pages/homePage.dart';
 import 'package:wallet_application/View/pages/statistics.dart';
 import 'package:wallet_application/View/settings/settings.dart';
-
+import 'package:wallet_application/controller/dataBase/bottomProvider.dart';
 
 class Bottombar extends StatefulWidget {
   const Bottombar({super.key});
@@ -16,7 +17,6 @@ class Bottombar extends StatefulWidget {
 }
 
 class _bottom_barState extends State<Bottombar> {
-  int index_button = 0;
 
   final List<Widget> _bottombar = [
     HomePage(),
@@ -26,6 +26,7 @@ class _bottom_barState extends State<Bottombar> {
   ];
   @override
   Widget build(BuildContext context) {
+    final bottomProvider = Provider.of<BottomBarProvider>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -46,7 +47,7 @@ class _bottom_barState extends State<Bottombar> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: _bottombar[index_button],
+      body: _bottombar[bottomProvider.indexButton],
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         shape: const CircularNotchedRectangle(),
@@ -57,17 +58,13 @@ class _bottom_barState extends State<Bottombar> {
             children: [
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    index_button = 0;
-                  });
+                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(0);
                 },
                 child: const Icon(Icons.home_rounded),
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    index_button = 1;
-                  });
+                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(1);
                 },
                 child: const Icon(Icons.bar_chart_rounded),
               ),
@@ -76,17 +73,13 @@ class _bottom_barState extends State<Bottombar> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    index_button = 2;
-                  });
+                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(2);
                 },
                 child: const Icon(Icons.history_rounded),
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    index_button = 3;
-                  });
+                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(3);
                 },
                 child: const Icon(Icons.settings_rounded),
               )

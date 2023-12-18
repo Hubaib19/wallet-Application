@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
 import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
 import '../../utility/statementChart.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   final box = Hive.box<DataModel>('data');
   @override
   Widget build(BuildContext context) {
-    getAlldata();
+  Provider.of<DBProvider>(context).getAlldata();
     return Scaffold(
       body: Builder(builder: (context) {
         final mediaQuery = MediaQuery.of(context);
@@ -185,51 +186,48 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            ValueListenableBuilder(
-                valueListenable: walletListnotifier,
-                builder: (BuildContext ctx, List<DataModel> transactionList,
-                    Widget? child) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 390),
-                    child: ListView.separated(
-                        itemBuilder: (ctx, index) {
-                          final data = transactionList[index];
-                          return Card(
-                            elevation: 4,
-                            margin: const EdgeInsets.all(8),
-                            color: Colors.white,
-                            child: ListTile(
-                              title: Text(
-                                data.description,
-                                style: const TextStyle(
-                                    fontSize: 19, fontWeight: FontWeight.w700),
-                              ),
-                              subtitle: Text(
-                                '${data.datetime.year}-${data.datetime.day}-${data.datetime.month}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              trailing: Text(
-                                data.amount,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: data.through == 'Income'
-                                      ? Colors.green[500]
-                                      : Colors.red,
-                                ),
-                              ),
+            Consumer<DBProvider>(builder: (context, value, child) =>
+               Padding(
+                padding: const EdgeInsets.only(top: 390),
+                child: ListView.separated(
+                    itemBuilder: (ctx, index) {
+                      final data = value.transactionList[index];
+                      return Card(
+                        elevation: 4,
+                        margin: const EdgeInsets.all(8),
+                        color: Colors.white,
+                        child: ListTile(
+                          title: Text(
+                            data.description,
+                            style: const TextStyle(
+                                fontSize: 19, fontWeight: FontWeight.w700),
+                          ),
+                          subtitle: Text(
+                            '${data.datetime.year}-${data.datetime.day}-${data.datetime.month}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700),
+                          ),
+                          trailing: Text(
+                            data.amount,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: data.through == 'Income'
+                                  ? Colors.green[500]
+                                  : Colors.red,
                             ),
-                          );
-                        },
-                        separatorBuilder: (ctx, index) {
-                          return const Divider();
-                        },
-                        itemCount: transactionList.length > 4
-                            ? 4
-                            : transactionList.length),
-                  );
-                }),
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (ctx, index) {
+                      return const Divider();
+                    },
+                    itemCount: value.transactionList.length > 4
+                        ? 4
+                        : value.transactionList.length),
+              ),
+            ),
           ],
         );
       }),

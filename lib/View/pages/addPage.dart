@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks, no_leading_underscores_for_local_identifiers, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_application/View/pages/homePage.dart';
 import '../../controller/dataBase/db.functions.dart';
 import '../../model/dataModel.dart';
@@ -30,7 +31,7 @@ class _AddDataState extends State<AddData> {
 
   @override
   Widget build(BuildContext context) {
-    getAlldata();
+   Provider.of<DBProvider>(context). getAlldata();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -277,7 +278,7 @@ class _AddDataState extends State<AddData> {
           through: _statement,
           datetime: _date,
         );
-        addData(dataToadd);
+        Provider.of<DBProvider>(context).addData(dataToadd);
 
         Navigator.of(context)
             .pop(MaterialPageRoute(builder: (context) => const HomePage()));

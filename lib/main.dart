@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_application/controller/dataBase/bottomProvider.dart';
+import 'package:wallet_application/controller/dataBase/db.functions.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import 'model/dataModel.dart';
 
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BottomBarProvider(),)
+        ChangeNotifierProvider(create: (context) => BottomBarProvider(),),
+        ChangeNotifierProvider(create: (context) => DBProvider(),),
       ],
       child: const MaterialApp(
           title: 'Wallet', debugShowCheckedModeBanner: false, home: Bottombar()),

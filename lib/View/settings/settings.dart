@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import '../../controller/dataBase/db.functions.dart';
 import 'privacy.dart';
@@ -55,7 +56,7 @@ class _SettingsState extends State<Settings> {
                 leading: const Icon(Icons.restore),
                 title: const Text('Reset'),
                 onTap: () {
-                  resetData(index);
+                 Provider.of<DBProvider>(context).resetData(index);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       margin: const EdgeInsets.all(10),

@@ -3,11 +3,11 @@ import 'package:wallet_application/model/dataModel.dart';
 import 'package:wallet_application/services/db_services.dart';
 
 class DBProvider extends ChangeNotifier {
-    String search = "";
+  String search = "";
   List<DataModel> searchedList = [];
   DateTime date = DateTime.now();
 
-   String? selectedType;
+  String? selectedType;
   final List<String> category1 = [
     'Income',
     'Expense',
@@ -52,14 +52,21 @@ class DBProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    void setSelectedType(String value) {
+  void setSelectedType(String value) {
     selectedType = value;
     notifyListeners();
   }
-
-
-  void setSearch(String value) {
-    search = value;
+  
+    void setSearch(String query) {
+    if (query.isEmpty) {
+      searchedList = transactionList;
+    } else {
+      searchedList = transactionList
+          .where((statementModel) =>
+              statementModel.description.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    transactionList = searchedList;
     notifyListeners();
   }
 }

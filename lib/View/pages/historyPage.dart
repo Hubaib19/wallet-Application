@@ -14,19 +14,11 @@ class TransactionHistory extends StatefulWidget {
 class _TransactionHistoryState extends State<TransactionHistory> {
   @override
   void initState() {
-   // final provider = Provider.of<DBProvider>(context,listen: false);
-   // provider.getAllData();
-   // provider.searchedList = Provider.of<DBProvider>(context).transactionList;
     super.initState();
-  }
+   final provider = Provider.of<DBProvider>(context,listen: false);
+   provider.searchedList;
+   provider.getAllData();
 
-  void searchResult() {
-    final provider = Provider.of<DBProvider>(context, listen: false);
-    provider.searchedList = provider.transactionList
-        .where((statementModel) => statementModel.description
-            .toLowerCase()
-            .contains(provider.search.toLowerCase()))
-        .toList();
   }
 
   @override
@@ -53,7 +45,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     child: TextField(
                       onChanged: (value) {
                           provider.setSearch(value);
-                        searchResult();
                       },
                       decoration: InputDecoration(
                         focusColor: Colors.black,

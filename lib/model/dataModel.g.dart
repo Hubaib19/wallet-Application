@@ -21,7 +21,7 @@ class DataModelAdapter extends TypeAdapter<DataModel> {
       amount: fields[2] as String,
       through: fields[3] as String,
       datetime: fields[4] as DateTime,
-      id: fields[0] as int?,
+      id: fields[0] as String?,
     );
   }
 

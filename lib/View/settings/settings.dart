@@ -1,20 +1,16 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
-import '../../controller/dataBase/db.functions.dart';
+import '../../controller/db_functions.dart';
 import 'privacy.dart';
 import 'terms.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
+class Settings extends StatelessWidget {
+   Settings({super.key});
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   int index = -1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +52,7 @@ class _SettingsState extends State<Settings> {
                 leading: const Icon(Icons.restore),
                 title: const Text('Reset'),
                 onTap: () {
-                 Provider.of<DBProvider>(context).resetData(index);
+                 Provider.of<DBProvider>(context,listen: false).resetData(index);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       margin: const EdgeInsets.all(10),
@@ -66,7 +62,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   );
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Bottombar()));
+                      builder: (context) =>  Bottombar()));
                 },
               ),
             ),

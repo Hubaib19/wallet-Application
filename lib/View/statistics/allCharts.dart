@@ -2,11 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../controller/dataBase/db.functions.dart';
-import '../../utility/chartUtility.dart';
+import '../../controller/db_functions.dart';
+import '../../controller/chartUtility.dart';
 
-// ValueNotifier<List<DataModel>> overViewGraphNotifier =
-// ValueNotifier(walletListnotifier.value);
 
 class AllScreen extends StatefulWidget {
   const AllScreen({super.key});
@@ -31,14 +29,15 @@ class _AllScreenState extends State<AllScreen> {
         body: Consumer(builder: (context, value, child) {
           Map incomeMap = {
             'name': "Income",
-            "amount": IncomeAndExpence().income(),
+            "amount": UtilityProvider().income(),
           };
           Map expenseMap = {
             'name': 'Expense',
-            'amount': IncomeAndExpence().expense(),
+            'amount': UtilityProvider().expense(),
           };
           List<Map> totalMap = [incomeMap, expenseMap];
-          return Provider.of<DBProvider>(context).    
+
+          return Provider.of<DBProvider>(context). graphList.isEmpty   
               ? const SingleChildScrollView(
                   child: Column(
                     children: [

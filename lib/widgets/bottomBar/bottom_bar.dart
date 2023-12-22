@@ -7,23 +7,18 @@ import 'package:wallet_application/View/pages/historyPage.dart';
 import 'package:wallet_application/View/pages/homePage.dart';
 import 'package:wallet_application/View/pages/statistics.dart';
 import 'package:wallet_application/View/settings/settings.dart';
-import 'package:wallet_application/controller/dataBase/bottomProvider.dart';
+import 'package:wallet_application/controller/bottomProvider.dart';
 
-class Bottombar extends StatefulWidget {
-  const Bottombar({super.key});
+class Bottombar extends StatelessWidget {
+   Bottombar({super.key});
 
-  @override
-  State<Bottombar> createState() => _bottom_barState();
-}
-
-class _bottom_barState extends State<Bottombar> {
-
-  final List<Widget> _bottombar = [
+  final List<Widget> bottombar = [
     HomePage(),
     StatisticsScreen(),
     TransactionHistory(),
     Settings(),
   ];
+
   @override
   Widget build(BuildContext context) {
     final bottomProvider = Provider.of<BottomBarProvider>(context);
@@ -47,7 +42,7 @@ class _bottom_barState extends State<Bottombar> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: _bottombar[bottomProvider.indexButton],
+      body: bottombar[bottomProvider.indexButton],
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         shape: const CircularNotchedRectangle(),

@@ -1,12 +1,11 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
-import '../../model/dataModel.dart';
+import 'package:provider/provider.dart';
+import 'package:wallet_application/controller/db_functions.dart';
 import '../statistics/allCharts.dart';
 import '../statistics/expenceChart.dart';
 import '../statistics/incomeChart.dart';
 
-ValueNotifier<List<DataModel>> overViewGraphNotifier =
-    ValueNotifier(walletListnotifier.value);
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
@@ -21,7 +20,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   void initState() {
     super.initState();
-    overViewGraphNotifier.value = walletListnotifier.value;
+    Provider.of<DBProvider>(context, listen: false).graphList =
+        Provider.of<DBProvider>(context, listen: false).transactionList;
   }
 
   @override
@@ -74,7 +74,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "All",
                       ),
                       onTap: () {
-                        overViewGraphNotifier.value = walletListnotifier.value;
+                        Provider.of<DBProvider>(context, listen: false)
+                                .graphList =
+                            Provider.of<DBProvider>(context, listen: false)
+                                .transactionList;
                         setState(() {
                           dateFilterTitle = 'All';
                         });
@@ -86,18 +89,18 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "Today",
                       ),
                       onTap: () {
-                        overViewGraphNotifier.value = walletListnotifier.value;
-                        overViewGraphNotifier.value = overViewGraphNotifier
-                            .value
+                        Provider.of<DBProvider>(context, listen: false)
+                            .graphList = Provider.of<DBProvider>(context,
+                                listen: false)
+                            .transactionList
                             .where((element) =>
                                 element.datetime.day == DateTime.now().day &&
                                 element.datetime.month ==
                                     DateTime.now().month &&
                                 element.datetime.year == DateTime.now().year)
                             .toList();
-                        setState(() {
-                          dateFilterTitle = "Today";
-                        });
+                        Provider.of<DBProvider>(context, listen: false);
+                        dateFilterTitle = "Today";
                       },
                     ),
                     PopupMenuItem(
@@ -106,7 +109,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "Week",
                       ),
                       onTap: () {
-                        overViewGraphNotifier.value = walletListnotifier.value
+                        Provider.of<DBProvider>(context, listen: false)
+                            .graphList = Provider.of<DBProvider>(context,
+                                listen: false)
+                            .transactionList
                             .where((element) =>
                                 element.datetime.weekday ==
                                     DateTime.now().weekday &&
@@ -114,9 +120,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                     DateTime.now().month &&
                                 element.datetime.year == DateTime.now().year)
                             .toList();
-                        setState(() {
-                          dateFilterTitle = "Week";
-                        });
+                        Provider.of<DBProvider>(context, listen: false);
+                        dateFilterTitle = "Week";
                       },
                     ),
                     PopupMenuItem(
@@ -125,17 +130,17 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "Month",
                       ),
                       onTap: () {
-                        overViewGraphNotifier.value = walletListnotifier.value;
-                        overViewGraphNotifier.value = overViewGraphNotifier
-                            .value
+                        Provider.of<DBProvider>(context, listen: false)
+                            .graphList = Provider.of<DBProvider>(context,
+                                listen: false)
+                            .transactionList
                             .where((element) =>
                                 element.datetime.month ==
                                     DateTime.now().month &&
                                 element.datetime.year == DateTime.now().year)
                             .toList();
-                        setState(() {
-                          dateFilterTitle = "Month";
-                        });
+                        Provider.of<DBProvider>(context, listen: false);
+                        dateFilterTitle = "Month";
                       },
                     ),
                     PopupMenuItem(
@@ -144,16 +149,16 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "Year",
                       ),
                       onTap: () {
-                        overViewGraphNotifier.value = walletListnotifier.value;
-                        overViewGraphNotifier.value = overViewGraphNotifier
-                            .value
+                        Provider.of<DBProvider>(context, listen: false)
+                            .graphList = Provider.of<DBProvider>(context,
+                                listen: false)
+                            .transactionList
                             .where((element) =>
                                 element.datetime.year == DateTime.now().year &&
                                 element.datetime.year == DateTime.now().year)
                             .toList();
-                        setState(() {
-                          dateFilterTitle = "Year";
-                        });
+                        Provider.of<DBProvider>(context, listen: false);
+                        dateFilterTitle = "Year";
                       },
                     ),
                   ],

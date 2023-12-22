@@ -1,14 +1,14 @@
-// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables, duplicate_ignore, non_constant_identifier_names, unrelated_type_equality_checks, file_names
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables, duplicate_ignore, non_constant_identifier_names, unrelated_type_equality_checks, file_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet_application/controller/edit_provider.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
-import '../../controller/dataBase/db.functions.dart';
+import '../../controller/db_functions.dart';
 import '../../model/dataModel.dart';
 
 class EditPage extends StatefulWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  int? id;
+  var id;
   var description;
   var amoUnt;
   var statement;
@@ -27,27 +27,13 @@ class EditPage extends StatefulWidget {
 }
 
 class EditPageState extends State<EditPage> {
-  DateTime date = DateTime.now();
-  String? statement;
-
-  TextEditingController Description = TextEditingController();
-  TextEditingController amountC = TextEditingController();
-  TextEditingController Statement = TextEditingController();
-  TextEditingController Date = TextEditingController();
-
-  List<String> category1 = [
-    'Income',
-    'Expense',
-  ];
-
   @override
   void initState() {
+    final provider = Provider.of<EditProvider>(context, listen: false);
     super.initState();
-
-    Description = TextEditingController(text: widget.description);
-    amountC = TextEditingController(text: widget.amoUnt);
-    Statement = TextEditingController(text: widget.statement);
-    Date = TextEditingController(text: widget.date);
+    provider.editAmountC = TextEditingController(text: widget.amoUnt);
+    provider.editDescription = TextEditingController(text: widget.description);
+    provider.statement = widget.statement;
   }
 
   @override
@@ -95,7 +81,7 @@ class EditPageState extends State<EditPage> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                editall(context);
+                editall();
               },
               child: Column(
                 children: [
@@ -135,81 +121,76 @@ class EditPageState extends State<EditPage> {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 2, color: Colors.grey)),
       width: 300,
-      child: TextButton(
-          onPressed: () async {
-            DateTime? newDate = await showDatePicker(
-                context: context,
-                initialDate: date,
-                firstDate: DateTime(2023),
-                lastDate: DateTime(2500));
-            if (newDate == Null) return;
-            setState(() {
-              date = newDate!;
-            });
-          },
-          child: Text(
-            'Date : ${date.day.toString()} /${date.month.toString()} /${date.year.toString()}',
-            style: const TextStyle(fontSize: 15, color: Colors.black),
-          )),
+      child: Consumer<EditProvider>(builder: (context, editProvider, child) {
+        return TextButton(
+            onPressed: () async {
+              DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: editProvider.date,
+                  firstDate: DateTime(2023),
+                  lastDate: DateTime(2500));
+              if (newDate == Null) return;
+              editProvider.setDate(newDate!);
+            },
+            child: Text(
+              'Date : ${editProvider.date.day} /${editProvider.date.month} /${editProvider.date.year}',
+              style: const TextStyle(fontSize: 15, color: Colors.black),
+            ));
+      }),
     );
   }
 
   Padding Through() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        width: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              width: 2, color: const Color.fromARGB(255, 144, 143, 143)),
-        ),
-        child: DropdownButton<String>(
-            value: widget.statement,
-            items: category1
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 40,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            e,
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                    ))
-                .toList(),
-            selectedItemBuilder: (context) => category1
-                .map((e) => Row(
-                      children: [
-                        const SizedBox(
-                          width: 42,
-                        ),
-                        Text(e),
-                      ],
-                    ))
-                .toList(),
-            hint: const Text(
-              'Statement',
-              style: TextStyle(color: Colors.grey),
-            ),
-            isExpanded: true,
-            underline: Container(),
-            onChanged: ((value) {
-              setState(() {
-                widget.statement = value!;
-              });
-            })),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Consumer<EditProvider>(
+        builder: (context, provider, child) {
+          return Container(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: 2,
+                  color: Colors.grey,
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: DropdownButtonFormField<String>(
+                  hint: Row(
+                    children: [
+                      Text(widget.statement,
+                          style: const TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                  value: provider.statement,
+                  onChanged: ((value) {
+                    provider.setSelectedType(value!);
+                  }),
+                  items: provider.editCategory
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Row(
+                              children: [
+                                Text(
+                                  e,
+                                  style: const TextStyle(fontSize: 17),
+                                )
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                ),
+              ));
+        },
       ),
     );
   }
 
   Padding amount_() {
+    final editProvider = Provider.of<EditProvider>(context, listen: false);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SizedBox(
@@ -218,7 +199,7 @@ class EditPageState extends State<EditPage> {
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
             ],
-            controller: amountC,
+            controller: editProvider.editAmountC,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -237,12 +218,14 @@ class EditPageState extends State<EditPage> {
   }
 
   Padding description() {
+    final editProvider = Provider.of<EditProvider>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         width: 300,
         child: TextField(
-          controller: Description,
+          controller: editProvider.editDescription,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -261,25 +244,25 @@ class EditPageState extends State<EditPage> {
     );
   }
 
-  editall(BuildContext context) async {
-    final descriptioN = Description.text.trim();
-    final amounT = amountC.text.trim();
-    final statemenT = widget.statement.toString();
-    final datE = date;
+  Future<void> editall() async {
+    final editProvider = Provider.of<EditProvider>(context, listen: false);
+    final dbProvider = Provider.of<DBProvider>(context, listen: false);
+    final description = editProvider.editDescription.text;
+    final amount = editProvider.editAmountC.text;
 
-    final DataModel dataToadd = DataModel(
-      description: descriptioN,
-      amount: amounT,
-      through: statemenT,
+    final datE = editProvider.date;
+
+    final model = DataModel(
+      through: editProvider.statement!,
+      amount: amount,
       datetime: datE,
+      description: description,
+      id: widget.id
     );
-    Provider.of<DBProvider>(context).editdata(widget.id, dataToadd);
 
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const Bottombar()));
+    await dbProvider.editData(model);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) =>  Bottombar(),
+    ));
   }
 }
-
-// buildcontext
-// git conflict
-// initstate

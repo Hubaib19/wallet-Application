@@ -1,42 +1,40 @@
 // ignore_for_file: file_names
-import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../model/dataModel.dart';
-import '../pages/statistics.dart';
 
-class IncomeChart extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wallet_application/controller/db_functions.dart';
+import 'package:wallet_application/model/dataModel.dart';
+
+class IncomeChart extends StatelessWidget {
   const IncomeChart({super.key});
 
   @override
-  State<IncomeChart> createState() => _IncomeScreenState();
-}
-
-class _IncomeScreenState extends State<IncomeChart> {
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: ValueListenableBuilder(
-          valueListenable: overViewGraphNotifier,
-          builder:
-              (BuildContext context, List<DataModel> newList, Widget? child) {
-            var allincome = newList
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Consumer<DBProvider>(
+            builder: (context, transactionProvider, child) {
+            var allIncome = transactionProvider.graphList
                 .where((element) => element.through == 'Income')
                 .toList();
-            return overViewGraphNotifier.value.isEmpty
+            return transactionProvider.graphList.isEmpty
                 ? const SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('No data Found'),
-                      ],
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Center(child: Text('No data Found')),
+                        ],
+                      ),
                     ),
                   )
-                : SfCircularChart(
+                :SfCircularChart(
                     palette: const [Colors.lightBlueAccent],
                     series: <CircularSeries>[
                       PieSeries<DataModel, String>(
-                          dataSource: allincome,
+                          dataSource: allIncome,
                           xValueMapper: (DataModel incomeDate, _) =>
                               incomeDate.description,
                           yValueMapper: (DataModel incomeDate, _) =>
@@ -46,11 +44,14 @@ class _IncomeScreenState extends State<IncomeChart> {
                           ))
                     ],
                     legend: const Legend(
-                        isVisible: true,
-                        overflowMode: LegendItemOverflowMode.scroll,
-                        alignment: ChartAlignment.center),
+                      isVisible: true,
+                      overflowMode: LegendItemOverflowMode.scroll,
+                      alignment: ChartAlignment.center,
+                    ),
                   );
-          }),
-    ));
+          },
+        ),
+      ),
+    );
   }
 }

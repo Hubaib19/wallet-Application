@@ -1,41 +1,40 @@
 // ignore_for_file: file_names
-import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../model/dataModel.dart';
-import '../pages/statistics.dart';
 
-class ExpenceChart extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wallet_application/controller/db_functions.dart';
+import 'package:wallet_application/model/dataModel.dart';
+
+class ExpenceChart extends StatelessWidget {
   const ExpenceChart({super.key});
 
   @override
-  State<ExpenceChart> createState() => _ExpenceChartState();
-}
-
-class _ExpenceChartState extends State<ExpenceChart> {
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: overViewGraphNotifier,
-        builder:
-            (BuildContext context, List<DataModel> newList, Widget? child) {
-          var allincome =
-              newList.where((element) => element.through == 'Expense').toList();
-          return overViewGraphNotifier.value.isEmpty
-              ? const SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('No data found'),
-                    ],
-                  ),
-                )
-              : SfCircularChart(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Consumer<DBProvider>(
+            builder: (context, transactionProvider, child) {
+            var allIncome = transactionProvider.graphList
+                .where((element) => element.through == 'Expense')
+                .toList();
+            return transactionProvider.graphList.isEmpty
+                ? const SingleChildScrollView(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Center(child: Text('No data found')),
+                        ],
+                      ),
+                    ),
+                  )
+                :  SfCircularChart(
                   palette: const [Colors.pinkAccent],
                   series: <CircularSeries>[
                     PieSeries<DataModel, String>(
-                        dataSource: allincome,
+                        dataSource: allIncome,
                         xValueMapper: (DataModel expenseDate, _) =>
                             expenseDate.description,
                         yValueMapper: (DataModel expenseDate, _) =>
@@ -43,14 +42,16 @@ class _ExpenceChartState extends State<ExpenceChart> {
                         dataLabelSettings: const DataLabelSettings(
                           isVisible: true,
                         ))
-                  ],
-                  legend: const Legend(
+                    ],
+                    legend: const Legend(
                       isVisible: true,
                       overflowMode: LegendItemOverflowMode.scroll,
-                      alignment: ChartAlignment.center),
-                );
-        },
+                      alignment: ChartAlignment.center,
+                    ),
+                  );
+          },
+        ),
       ),
-    ));
+    );
   }
 }

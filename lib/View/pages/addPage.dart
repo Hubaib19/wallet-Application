@@ -1,9 +1,9 @@
-// ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks, no_leading_underscores_for_local_identifiers, file_names
+// ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks, no_leading_underscores_for_local_identifiers, file_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet_application/View/pages/homePage.dart';
-import '../../controller/dataBase/db.functions.dart';
+import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
+import '../../controller/db_functions.dart';
 import '../../model/dataModel.dart';
 
 class AddData extends StatefulWidget {
@@ -14,24 +14,11 @@ class AddData extends StatefulWidget {
 }
 
 class _AddDataState extends State<AddData> {
-  DateTime date = DateTime.now();
-  String? statement;
-
-  final TextEditingController Description = TextEditingController();
-
-  TextEditingController statementController = TextEditingController();
-
-  final TextEditingController amountC = TextEditingController();
-
-  final List<String> category1 = [
-    'Income',
-    'Expense',
-  ];
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-   Provider.of<DBProvider>(context). getAlldata();
+    Provider.of<DBProvider>(context).getAllData();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -80,7 +67,12 @@ class _AddDataState extends State<AddData> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                onAddbuttonClicked(context);
+                final provider = Provider.of<DBProvider>(context,listen: false);
+                addTransaction();
+                provider.description.clear();
+                provider.amountC.clear();
+                provider.selectedType = null;
+                provider.date = DateTime.now();
               },
               child: Column(
                 children: [
@@ -111,6 +103,7 @@ class _AddDataState extends State<AddData> {
   }
 
   Container date_time(BuildContext context) {
+    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
     return Container(
       alignment: Alignment.bottomLeft,
       decoration: BoxDecoration(
@@ -121,82 +114,70 @@ class _AddDataState extends State<AddData> {
           onPressed: () async {
             DateTime? newDate = await showDatePicker(
                 context: context,
-                initialDate: date,
+                initialDate: transactionProvider.date,
                 firstDate: DateTime(2023),
                 lastDate: DateTime(2500));
             if (newDate == Null) return;
-            setState(() {
-              date = newDate!;
-            });
+
+            Provider.of<DBProvider>(context, listen: false);
+            transactionProvider.date = newDate!;
           },
           child: Text(
-            'Date : ${date.day} /${date.month} /${date.year}',
+            'Date : ${transactionProvider.date.day} /${transactionProvider.date.month} /${transactionProvider.date.year}',
             style: const TextStyle(fontSize: 15, color: Colors.black),
           )),
     );
   }
 
-  Padding Through() {
+ Padding Through() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        width: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            width: 2,
-            color: const Color.fromARGB(255, 144, 143, 143),
-          ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-                child: TextFormField(
-              controller: statementController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                hintText: 'Statement',
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(Icons.arrow_drop_down),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Consumer<DBProvider>(
+        builder: (context, provider, child) {
+          return Container(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+            width: 300,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: 2,
+                  color: Colors.grey,
+                )),
+            child: DropdownButtonFormField<String>(
+              value: provider.selectedType,
+      
+              onChanged: ((value) {
+               provider.setSelectedType(value!);
+              }),
+              items: provider.category1
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Row(
+                          children: [
+                            Text(
+                              e,
+                              style: const TextStyle(fontSize: 17),
+                            )
+                          ],
+                        ),
+                      ))
+                  .toList(),
+      
+              hint: const Text(
+                'Select',
+                style: TextStyle(color: Colors.grey),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'statement is empty';
-                } else {
-                  return null;
-                }
-              },
-              onTap: () {
-                _showStatementPicker(context);
-              },
-            )),
-          ],
-        ),
+              dropdownColor: Colors.white,
+              isExpanded: true,
+            ));
+        },
+        
       ),
     );
   }
 
-  void _showStatementPicker(BuildContext context) async {
-    String? selectedStatement = await showMenu(
-      context: context,
-      position: const RelativeRect.fromLTRB(20, 370, 90, 0),
-      items: category1.map((e) {
-        return PopupMenuItem(
-          value: e,
-          child: Text(e),
-        );
-      }).toList(),
-    );
-    if (selectedStatement != null) {
-      setState(() {
-        statement = selectedStatement;
-        statementController.text = statement!;
-      });
-    }
-  }
-
   Padding amount_() {
+    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SizedBox(
@@ -205,7 +186,7 @@ class _AddDataState extends State<AddData> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly
               ],
-              controller: amountC,
+              controller: transactionProvider.amountC,
               decoration: InputDecoration(
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -233,12 +214,13 @@ class _AddDataState extends State<AddData> {
   }
 
   Padding description() {
+    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         width: 300,
         child: TextFormField(
-            controller: Description,
+            controller: transactionProvider.description,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -262,27 +244,19 @@ class _AddDataState extends State<AddData> {
     );
   }
 
-  onAddbuttonClicked(BuildContext context) {
-    if (_formkey.currentState!.validate()) {
-      final _description = Description.text.trim();
-      final _amount = amountC.text.trim();
-      final _statement = statement.toString();
-      final _date = date;
+  Future addTransaction() async {
+    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
+    final model = DataModel(
+        through: transactionProvider.selectedType!,
+        amount: transactionProvider.amountC.text,
+        datetime: transactionProvider.date,
+        description: transactionProvider.description.text,
+        id: DateTime.now().microsecondsSinceEpoch.toString());
 
-      if (statement!.isEmpty || _amount.isEmpty || _description.isEmpty) {
-        return;
-      } else {
-        final dataToadd = DataModel(
-          description: _description,
-          amount: _amount,
-          through: _statement,
-          datetime: _date,
-        );
-        Provider.of<DBProvider>(context).addData(dataToadd);
-
-        Navigator.of(context)
-            .pop(MaterialPageRoute(builder: (context) => const HomePage()));
-      }
-    }
+    await transactionProvider.addData(model);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) =>  Bottombar(),
+    ));
+    transactionProvider.getAllData();
   }
 }

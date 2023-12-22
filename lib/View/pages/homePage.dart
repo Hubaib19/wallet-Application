@@ -1,10 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import '../../controller/dataBase/db.functions.dart';
-import '../../model/dataModel.dart';
-import '../../utility/statementChart.dart';
+import '../../controller/db_functions.dart';
+import '../../controller/statementChart.dart';
 import 'historyPage.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,10 +13,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final box = Hive.box<DataModel>('data');
+  @override
+  void initState() {
+    super.initState();
+    final provider = Provider.of<DBProvider>(context, listen: false);
+    provider.getAllData();
+  }
+
   @override
   Widget build(BuildContext context) {
-  Provider.of<DBProvider>(context).getAlldata();
     return Scaffold(
       body: Builder(builder: (context) {
         final mediaQuery = MediaQuery.of(context);
@@ -74,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '₹ ${total()}',
+                            '₹${StatementProvider().total()}',
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 26,
@@ -130,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 30),
                                 child: Text(
-                                  '₹ ${Income()}',
+                                  '₹ ${StatementProvider().Income()}',
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 25,
@@ -140,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: Text(
-                                  '₹ ${Expense()}',
+                                  '₹ ${StatementProvider().Expense()}',
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 25,
@@ -164,30 +167,25 @@ class _HomePageState extends State<HomePage> {
                   const Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                      'Last Transaction', 
+                      'Last Transaction',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const TransactionHistory(),
-                        ));
-                      },
-                      child: const Text(
-                        'See all',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TransactionHistory(),
+                      ));
+
+                    },
+                    child: const Text('See all'),
                   )
                 ],
               ),
             ),
-            Consumer<DBProvider>(builder: (context, value, child) =>
-               Padding(
+            Consumer<DBProvider>(
+              builder: (context, value, child) => Padding(
                 padding: const EdgeInsets.only(top: 390),
                 child: ListView.separated(
                     itemBuilder: (ctx, index) {
@@ -204,8 +202,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           subtitle: Text(
                             '${data.datetime.year}-${data.datetime.day}-${data.datetime.month}',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700),
+                            style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           trailing: Text(
                             data.amount,

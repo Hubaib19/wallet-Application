@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, file_names
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../model/dataModel.dart';
+
+class StatementProvider extends ChangeNotifier{
 
 double totals = 0;
 
@@ -40,4 +43,5 @@ double Expense() {
     }
   }
   return expenseAmount;
+}
 }

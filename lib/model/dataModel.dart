@@ -5,7 +5,7 @@ part 'dataModel.g.dart';
 @HiveType(typeId: 1)
 class DataModel {
   @HiveField(0)
-  int? id;
+  String? id;
 
   @HiveField(1)
   String description;

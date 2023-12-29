@@ -54,11 +54,11 @@ class Settings extends StatelessWidget {
                 onTap: () {
                  Provider.of<DBProvider>(context,listen: false).resetData(index);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      margin: const EdgeInsets.all(10),
-                      backgroundColor: Colors.grey[100],
+                    const SnackBar(
+                      margin: EdgeInsets.all(10),
+                      backgroundColor: Colors.grey,
                       behavior: SnackBarBehavior.floating,
-                      content: const Text("Reset completed..."),
+                      content: Text("Reset completed...",style: TextStyle(color: Colors.black),),
                     ),
                   );
                   Navigator.of(context).push(MaterialPageRoute(

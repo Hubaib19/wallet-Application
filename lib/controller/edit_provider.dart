@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class EditProvider extends ChangeNotifier {
   DateTime date = DateTime.now();
   String? statement;
-  // DateTime? selectedEditDateTime;
 
   TextEditingController editDescription = TextEditingController();
   TextEditingController editAmountC = TextEditingController();

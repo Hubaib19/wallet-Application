@@ -67,7 +67,8 @@ class _AddDataState extends State<AddData> {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                final provider = Provider.of<DBProvider>(context,listen: false);
+                final provider =
+                    Provider.of<DBProvider>(context, listen: false);
                 addTransaction();
                 provider.description.clear();
                 provider.amountC.clear();
@@ -129,49 +130,46 @@ class _AddDataState extends State<AddData> {
     );
   }
 
- Padding Through() {
+  Padding Through() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Consumer<DBProvider>(
         builder: (context, provider, child) {
           return Container(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-            width: 300,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  width: 2,
-                  color: Colors.grey,
-                )),
-            child: DropdownButtonFormField<String>(
-              value: provider.selectedType,
-      
-              onChanged: ((value) {
-               provider.setSelectedType(value!);
-              }),
-              items: provider.category1
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Row(
-                          children: [
-                            Text(
-                              e,
-                              style: const TextStyle(fontSize: 17),
-                            )
-                          ],
-                        ),
-                      ))
-                  .toList(),
-      
-              hint: const Text(
-                'Select',
-                style: TextStyle(color: Colors.grey),
-              ),
-              dropdownColor: Colors.white,
-              isExpanded: true,
-            ));
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+              width: 300,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.grey,
+                  )),
+              child: DropdownButtonFormField<String>(
+                value: provider.selectedType,
+                onChanged: ((value) {
+                  provider.setSelectedType(value!);
+                }),
+                items: provider.category1
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Row(
+                            children: [
+                              Text(
+                                e,
+                                style: const TextStyle(fontSize: 17),
+                              )
+                            ],
+                          ),
+                        ))
+                    .toList(),
+                hint: const Text(
+                  'Select',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                dropdownColor: Colors.white,
+                isExpanded: true,
+              ));
         },
-        
       ),
     );
   }
@@ -255,7 +253,7 @@ class _AddDataState extends State<AddData> {
 
     await transactionProvider.addData(model);
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) =>  Bottombar(),
+      builder: (context) => Bottombar(),
     ));
     transactionProvider.getAllData();
   }

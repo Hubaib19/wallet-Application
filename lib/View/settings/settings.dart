@@ -7,7 +7,7 @@ import 'privacy.dart';
 import 'terms.dart';
 
 class Settings extends StatelessWidget {
-   Settings({super.key});
+  Settings({super.key});
 
   int index = -1;
 
@@ -52,17 +52,21 @@ class Settings extends StatelessWidget {
                 leading: const Icon(Icons.restore),
                 title: const Text('Reset'),
                 onTap: () {
-                 Provider.of<DBProvider>(context,listen: false).resetData(index);
+                  Provider.of<DBProvider>(context, listen: false)
+                      .resetData(index);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       margin: EdgeInsets.all(10),
                       backgroundColor: Colors.grey,
                       behavior: SnackBarBehavior.floating,
-                      content: Text("Reset completed...",style: TextStyle(color: Colors.black),),
+                      content: Text(
+                        "Reset completed...",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   );
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>  Bottombar()));
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Bottombar()));
                 },
               ),
             ),

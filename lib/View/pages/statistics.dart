@@ -6,7 +6,6 @@ import '../statistics/allCharts.dart';
 import '../statistics/expenceChart.dart';
 import '../statistics/incomeChart.dart';
 
-
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
 

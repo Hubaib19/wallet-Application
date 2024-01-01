@@ -56,14 +56,15 @@ class DBProvider extends ChangeNotifier {
     selectedType = value;
     notifyListeners();
   }
-  
-    void setSearch(String query) {
+
+  void setSearch(String query) {
     if (query.isEmpty) {
       searchedList = transactionList;
     } else {
       searchedList = transactionList
-          .where((statementModel) =>
-              statementModel.description.toLowerCase().contains(query.toLowerCase()))
+          .where((statementModel) => statementModel.description
+              .toLowerCase()
+              .contains(query.toLowerCase()))
           .toList();
     }
     transactionList = searchedList;

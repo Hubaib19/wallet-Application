@@ -15,7 +15,7 @@ class ExpenceChart extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Consumer<DBProvider>(
-            builder: (context, transactionProvider, child) {
+          builder: (context, transactionProvider, child) {
             var allIncome = transactionProvider.graphList
                 .where((element) => element.through == 'Expense')
                 .toList();
@@ -30,18 +30,18 @@ class ExpenceChart extends StatelessWidget {
                       ),
                     ),
                   )
-                :  SfCircularChart(
-                  palette: const [Colors.pinkAccent],
-                  series: <CircularSeries>[
-                    PieSeries<DataModel, String>(
-                        dataSource: allIncome,
-                        xValueMapper: (DataModel expenseDate, _) =>
-                            expenseDate.description,
-                        yValueMapper: (DataModel expenseDate, _) =>
-                            num.parse(expenseDate.amount),
-                        dataLabelSettings: const DataLabelSettings(
-                          isVisible: true,
-                        ))
+                : SfCircularChart(
+                    palette: const [Colors.pinkAccent],
+                    series: <CircularSeries>[
+                      PieSeries<DataModel, String>(
+                          dataSource: allIncome,
+                          xValueMapper: (DataModel expenseDate, _) =>
+                              expenseDate.description,
+                          yValueMapper: (DataModel expenseDate, _) =>
+                              num.parse(expenseDate.amount),
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: true,
+                          ))
                     ],
                     legend: const Legend(
                       isVisible: true,

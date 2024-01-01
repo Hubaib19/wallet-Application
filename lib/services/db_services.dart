@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 import 'package:wallet_application/model/dataModel.dart';
 
 class TransactionService {
-
   Future<List<DataModel>> getAllData() async {
     final walletDB = await Hive.openBox<DataModel>('data');
     return walletDB.values.toList();
@@ -19,11 +18,11 @@ class TransactionService {
   }
 
   Future<void> editData(DataModel value) async {
-      final walletDB = await Hive.openBox<DataModel>('data');
-      walletDB.put(value.id, value);
+    final walletDB = await Hive.openBox<DataModel>('data');
+    walletDB.put(value.id, value);
   }
-  
-   Future<void> resetData(int id) async {
+
+  Future<void> resetData(int id) async {
     final walletDB = await Hive.openBox<DataModel>('data');
     walletDB.clear();
   }

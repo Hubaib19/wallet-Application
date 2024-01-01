@@ -15,7 +15,7 @@ class IncomeChart extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Consumer<DBProvider>(
-            builder: (context, transactionProvider, child) {
+          builder: (context, transactionProvider, child) {
             var allIncome = transactionProvider.graphList
                 .where((element) => element.through == 'Income')
                 .toList();
@@ -30,7 +30,7 @@ class IncomeChart extends StatelessWidget {
                       ),
                     ),
                   )
-                :SfCircularChart(
+                : SfCircularChart(
                     palette: const [Colors.lightBlueAccent],
                     series: <CircularSeries>[
                       PieSeries<DataModel, String>(

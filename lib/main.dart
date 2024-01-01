@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           create: (context) => EditProvider(),
         ),
       ],
-      child:  MaterialApp(
+      child: MaterialApp(
           title: 'Wallet',
           debugShowCheckedModeBanner: false,
           home: Bottombar()),

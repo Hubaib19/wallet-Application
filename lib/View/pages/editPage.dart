@@ -253,16 +253,15 @@ class EditPageState extends State<EditPage> {
     final datE = editProvider.date;
 
     final model = DataModel(
-      through: editProvider.statement!,
-      amount: amount,
-      datetime: datE,
-      description: description,
-      id: widget.id
-    );
+        through: editProvider.statement!,
+        amount: amount,
+        datetime: datE,
+        description: description,
+        id: widget.id);
 
     await dbProvider.editData(model);
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) =>  Bottombar(),
+      builder: (context) => Bottombar(),
     ));
   }
 }

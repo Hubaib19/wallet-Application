@@ -15,10 +15,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   @override
   void initState() {
     super.initState();
-   final provider = Provider.of<DBProvider>(context,listen: false);
-   provider.searchedList;
-   provider.getAllData();
-
+    final provider = Provider.of<DBProvider>(context, listen: false);
+    provider.searchedList;
+    provider.getAllData();
   }
 
   @override
@@ -44,7 +43,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     color: const Color.fromARGB(255, 255, 255, 255),
                     child: TextField(
                       onChanged: (value) {
-                          provider.setSearch(value);
+                        provider.setSearch(value);
                       },
                       decoration: InputDecoration(
                         focusColor: Colors.black,
@@ -145,7 +144,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.red),
                                     onPressed: () {
-                                    provider.deleteData(data);
+                                      provider.deleteData(data);
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text(
@@ -174,7 +173,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               amoUnt: data.amount,
                               statement: data.through,
                               date: data.datetime.toString(),
-                              
                             ),
                           ));
                         },

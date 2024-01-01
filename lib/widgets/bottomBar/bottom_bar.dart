@@ -10,7 +10,7 @@ import 'package:wallet_application/View/settings/settings.dart';
 import 'package:wallet_application/controller/bottomProvider.dart';
 
 class Bottombar extends StatelessWidget {
-   Bottombar({super.key});
+  Bottombar({super.key});
 
   final List<Widget> bottombar = [
     HomePage(),
@@ -53,13 +53,15 @@ class Bottombar extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(0);
+                  Provider.of<BottomBarProvider>(context, listen: false)
+                      .setIndex(0);
                 },
                 child: const Icon(Icons.home_rounded),
               ),
               GestureDetector(
                 onTap: () {
-                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(1);
+                  Provider.of<BottomBarProvider>(context, listen: false)
+                      .setIndex(1);
                 },
                 child: const Icon(Icons.bar_chart_rounded),
               ),
@@ -68,13 +70,15 @@ class Bottombar extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(2);
+                  Provider.of<BottomBarProvider>(context, listen: false)
+                      .setIndex(2);
                 },
                 child: const Icon(Icons.history_rounded),
               ),
               GestureDetector(
                 onTap: () {
-                 Provider.of<BottomBarProvider>(context, listen: false).setIndex(3);
+                  Provider.of<BottomBarProvider>(context, listen: false)
+                      .setIndex(3);
                 },
                 child: const Icon(Icons.settings_rounded),
               )

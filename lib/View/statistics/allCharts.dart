@@ -5,7 +5,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../controller/db_functions.dart';
 import '../../controller/chartUtility.dart';
 
-
 class AllScreen extends StatefulWidget {
   const AllScreen({super.key});
 
@@ -37,7 +36,7 @@ class _AllScreenState extends State<AllScreen> {
           };
           List<Map> totalMap = [incomeMap, expenseMap];
 
-          return Provider.of<DBProvider>(context). graphList.isEmpty   
+          return Provider.of<DBProvider>(context).graphList.isEmpty
               ? const SingleChildScrollView(
                   child: Column(
                     children: [

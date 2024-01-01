@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    super.initState(); 
+    super.initState();
     final provider = Provider.of<DBProvider>(context, listen: false);
     provider.getAllData();
   }
@@ -177,7 +177,6 @@ class _HomePageState extends State<HomePage> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const TransactionHistory(),
                       ));
-
                     },
                     child: const Text('See all'),
                   )

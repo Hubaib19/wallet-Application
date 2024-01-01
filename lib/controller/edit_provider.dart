@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class EditProvider extends ChangeNotifier{
-    DateTime date = DateTime.now();
-   String? statement;
+class EditProvider extends ChangeNotifier {
+  DateTime date = DateTime.now();
+  String? statement;
   // DateTime? selectedEditDateTime;
 
   TextEditingController editDescription = TextEditingController();
@@ -14,15 +14,13 @@ class EditProvider extends ChangeNotifier{
     'Expense',
   ];
 
-      void setSelectedType(String value) {
+  void setSelectedType(String value) {
     statement = value;
     notifyListeners();
   }
 
-
- void setDate(DateTime newDate) {
+  void setDate(DateTime newDate) {
     date = newDate;
     notifyListeners();
   }
-
 }

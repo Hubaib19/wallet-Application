@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../model/dataModel.dart';
 
-class UtilityProvider extends ChangeNotifier{
-
-int totals = 0;
-final walletDB = Hive.box<DataModel>('data');
-ValueNotifier expenseTotal = ValueNotifier(0.0);
-ValueNotifier incomeTotal = ValueNotifier(0.0);
-
+class UtilityProvider extends ChangeNotifier {
+  int totals = 0;
+  final walletDB = Hive.box<DataModel>('data');
+  ValueNotifier expenseTotal = ValueNotifier(0.0);
+  ValueNotifier incomeTotal = ValueNotifier(0.0);
 
   int total() {
     var chart = walletDB.values.toList();
@@ -17,7 +15,7 @@ ValueNotifier incomeTotal = ValueNotifier(0.0);
     for (var i = 0; i < chart.length; i++) {
       a.add(chart[i].through == 'Income'
           ? int.parse(chart[i].amount)
-          : int.parse(chart[i].amount) * -1); 
+          : int.parse(chart[i].amount) * -1);
     }
     totals = a.reduce((value, element) => value + element);
     return totals;
@@ -42,5 +40,4 @@ ValueNotifier incomeTotal = ValueNotifier(0.0);
     totals = a.reduce((value, element) => value + element);
     return totals;
   }
-
 }

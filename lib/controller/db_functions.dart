@@ -5,7 +5,6 @@ import 'package:wallet_application/services/db_services.dart';
 class DBProvider extends ChangeNotifier {
   String search = "";
   List<DataModel> searchedList = [];
-
   List<DataModel> transactionList = [];
   List<DataModel> graphList = [];
 

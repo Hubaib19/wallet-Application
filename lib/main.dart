@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet_application/controller/add_page_provider.dart';
 import 'package:wallet_application/controller/bottomProvider.dart';
 import 'package:wallet_application/controller/db_functions.dart';
 import 'package:wallet_application/controller/edit_provider.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => EditProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddProvider(),
         ),
       ],
       child: MaterialApp(

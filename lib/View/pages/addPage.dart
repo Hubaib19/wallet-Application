@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet_application/controller/add_page_provider.dart';
 import 'package:wallet_application/widgets/bottomBar/bottom_bar.dart';
 import '../../controller/db_functions.dart';
 import '../../model/dataModel.dart';
@@ -68,7 +69,7 @@ class _AddDataState extends State<AddData> {
             child: GestureDetector(
               onTap: () {
                 final provider =
-                    Provider.of<DBProvider>(context, listen: false);
+                    Provider.of<AddProvider>(context, listen: false);
                 addTransaction();
                 provider.description.clear();
                 provider.amountC.clear();
@@ -104,7 +105,8 @@ class _AddDataState extends State<AddData> {
   }
 
   Container date_time(BuildContext context) {
-    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
+    final transactionProvider =
+        Provider.of<AddProvider>(context, listen: false);
     return Container(
       alignment: Alignment.bottomLeft,
       decoration: BoxDecoration(
@@ -133,7 +135,7 @@ class _AddDataState extends State<AddData> {
   Padding Through() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Consumer<DBProvider>(
+      child: Consumer<AddProvider>(
         builder: (context, provider, child) {
           return Container(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
@@ -175,7 +177,8 @@ class _AddDataState extends State<AddData> {
   }
 
   Padding amount_() {
-    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
+    final transactionProvider =
+        Provider.of<AddProvider>(context, listen: false);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SizedBox(
@@ -212,7 +215,8 @@ class _AddDataState extends State<AddData> {
   }
 
   Padding description() {
-    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
+    final transactionProvider =
+        Provider.of<AddProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
@@ -243,7 +247,8 @@ class _AddDataState extends State<AddData> {
   }
 
   Future addTransaction() async {
-    final transactionProvider = Provider.of<DBProvider>(context, listen: false);
+    final transactionProvider =
+        Provider.of<AddProvider>(context, listen: false);
     final model = DataModel(
         through: transactionProvider.selectedType!,
         amount: transactionProvider.amountC.text,
@@ -251,10 +256,11 @@ class _AddDataState extends State<AddData> {
         description: transactionProvider.description.text,
         id: DateTime.now().microsecondsSinceEpoch.toString());
 
-    await transactionProvider.addData(model);
+    final db = Provider.of<DBProvider>(context, listen: false);
+    await db.addData(model);
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => Bottombar(),
     ));
-    transactionProvider.getAllData();
+    db.getAllData();
   }
 }

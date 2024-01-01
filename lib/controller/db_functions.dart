@@ -5,19 +5,7 @@ import 'package:wallet_application/services/db_services.dart';
 class DBProvider extends ChangeNotifier {
   String search = "";
   List<DataModel> searchedList = [];
-  DateTime date = DateTime.now();
 
-  String? selectedType;
-  final List<String> category1 = [
-    'Income',
-    'Expense',
-  ];
-
-  final TextEditingController description = TextEditingController();
-
-  TextEditingController statementController = TextEditingController();
-
-  final TextEditingController amountC = TextEditingController();
   List<DataModel> transactionList = [];
   List<DataModel> graphList = [];
 
@@ -49,11 +37,6 @@ class DBProvider extends ChangeNotifier {
   Future<void> resetData(int id) async {
     await _transactionService.resetData(id);
     await getAllData();
-    notifyListeners();
-  }
-
-  void setSelectedType(String value) {
-    selectedType = value;
     notifyListeners();
   }
 

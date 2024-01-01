@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 15),
+                                padding: const EdgeInsets.only(right: 25),
                                 child: Text(
                                   '₹ ${StatementProvider().Expense()}',
                                   style: const TextStyle(

@@ -102,7 +102,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         dateFilterTitle = "Today";
                       },
                     ),
-                    PopupMenuItem(
+                    PopupMenuItem( 
                       value: 3,
                       child: const Text(
                         "Week",

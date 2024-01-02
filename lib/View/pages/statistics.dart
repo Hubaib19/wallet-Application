@@ -14,7 +14,6 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
-  String dateFilterTitle = 'All';
 
   @override
   void initState() {
@@ -25,6 +24,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final gprovider = Provider.of<DBProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -56,7 +56,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Row(
                     children: [
                       Text(
-                        dateFilterTitle,
+                       gprovider. dateFilterTitle,
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w600),
                       ),
@@ -73,13 +73,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         "All",
                       ),
                       onTap: () {
-                        Provider.of<DBProvider>(context, listen: false)
-                                .graphList =
-                            Provider.of<DBProvider>(context, listen: false)
-                                .transactionList;
-                        setState(() {
-                          dateFilterTitle = 'All';
-                        });
+                        gprovider.graphList = gprovider.transactionList;
+                        gprovider.setdatefilter('All');
                       },
                     ),
                     PopupMenuItem(
@@ -99,7 +94,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                 element.datetime.year == DateTime.now().year)
                             .toList();
                         Provider.of<DBProvider>(context, listen: false);
-                        dateFilterTitle = "Today";
+                          gprovider.setdatefilter('Today');
                       },
                     ),
                     PopupMenuItem(
@@ -120,7 +115,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                 element.datetime.year == DateTime.now().year)
                             .toList();
                         Provider.of<DBProvider>(context, listen: false);
-                        dateFilterTitle = "Week";
+                       gprovider. dateFilterTitle = "Week";
                       },
                     ),
                     PopupMenuItem(
@@ -139,7 +134,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                 element.datetime.year == DateTime.now().year)
                             .toList();
                         Provider.of<DBProvider>(context, listen: false);
-                        dateFilterTitle = "Month";
+                          gprovider.setdatefilter('Month');
                       },
                     ),
                     PopupMenuItem(
@@ -157,7 +152,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                 element.datetime.year == DateTime.now().year)
                             .toList();
                         Provider.of<DBProvider>(context, listen: false);
-                        dateFilterTitle = "Year";
+                          gprovider.setdatefilter('Yearz');
                       },
                     ),
                   ],

@@ -7,6 +7,8 @@ class DBProvider extends ChangeNotifier {
   List<DataModel> searchedList = [];
   List<DataModel> transactionList = [];
   List<DataModel> graphList = [];
+  String dateFilterTitle = 'All';
+
 
   ValueNotifier showCategory = ValueNotifier('All');
 
@@ -52,4 +54,9 @@ class DBProvider extends ChangeNotifier {
     transactionList = searchedList;
     notifyListeners();
   }
+void setdatefilter(String value){
+  dateFilterTitle=value;
+  notifyListeners();
+}
+
 }

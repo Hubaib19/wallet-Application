@@ -105,7 +105,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                     PopupMenuItem(
                       value: 3,
                       child: const Text(
-                        "Week", 
+                        "Week",
                       ),
                       onTap: () {
                         Provider.of<DBProvider>(context, listen: false)

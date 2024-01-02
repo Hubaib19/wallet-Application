@@ -91,7 +91,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                         Provider.of<DBProvider>(context, listen: false)
                             .graphList = Provider.of<DBProvider>(context,
                                 listen: false)
-                            .transactionList 
+                            .transactionList
                             .where((element) =>
                                 element.datetime.day == DateTime.now().day &&
                                 element.datetime.month ==
@@ -99,7 +99,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                 element.datetime.year == DateTime.now().year)
                             .toList();
                         Provider.of<DBProvider>(context, listen: false);
-                        dateFilterTitle = "Today"; 
+                        dateFilterTitle = "Today";
                       },
                     ),
                     PopupMenuItem(

@@ -16,7 +16,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   void initState() {
     super.initState();
     final provider = Provider.of<DBProvider>(context, listen: false);
-    provider.searchedList;
+    provider.gettrasaction();
     provider.getAllData();
   }
 
@@ -71,7 +71,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       ),
       body: Consumer<DBProvider>(
         builder: (context, provider, child) {
-          if (provider.transactionList.isEmpty) {
+          if (provider.searchedList.isEmpty) {
             return const Center(
               child: Text(
                 'No results found',
@@ -81,7 +81,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           }
           return ListView.separated(
             itemBuilder: (ctx, index) {
-              final data = provider.transactionList[index];
+              final data = provider.searchedList[index];
               return Card(
                 elevation: 4,
                 margin: const EdgeInsets.all(8),
@@ -190,7 +190,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             separatorBuilder: (ctx, index) {
               return const Divider();
             },
-            itemCount: provider.transactionList.length,
+            itemCount: provider.searchedList.length,
           );
         },
       ),

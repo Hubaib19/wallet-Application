@@ -9,7 +9,6 @@ class DBProvider extends ChangeNotifier {
   List<DataModel> graphList = [];
   String dateFilterTitle = 'All';
 
-
   ValueNotifier showCategory = ValueNotifier('All');
 
   final TransactionService _transactionService = TransactionService();
@@ -41,22 +40,26 @@ class DBProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  gettrasaction() {
+    searchedList = transactionList;
+  }
+
   void setSearch(String query) {
     if (query.isEmpty) {
       searchedList = transactionList;
+      notifyListeners();
     } else {
       searchedList = transactionList
           .where((statementModel) => statementModel.description
               .toLowerCase()
               .contains(query.toLowerCase()))
           .toList();
+      notifyListeners();
     }
-    transactionList = searchedList;
+  }
+
+  void setdatefilter(String value) {
+    dateFilterTitle = value;
     notifyListeners();
   }
-void setdatefilter(String value){
-  dateFilterTitle=value;
-  notifyListeners();
-}
-
 }
